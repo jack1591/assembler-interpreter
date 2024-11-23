@@ -2,16 +2,16 @@
   <instruction>
     <mnemonic>LOAD_CONST</mnemonic>
     <opcode>0</opcode>
-    <operand>773</operand>
+    <operand>7</operand>
     <result_register>0</result_register>
-    <binary>0x50 0x30 0x00 0x00 </binary>
+    <binary>0x70 0x00 0x00 0x00 </binary>
   </instruction>
   <instruction>
     <mnemonic>LOAD_CONST</mnemonic>
     <opcode>0</opcode>
-    <operand>5</operand>
+    <operand>6</operand>
     <result_register>2</result_register>
-    <binary>0x50 0x00 0x00 0x01 </binary>
+    <binary>0x60 0x00 0x00 0x01 </binary>
   </instruction>
   <instruction>
     <mnemonic>WRITE_VALUE</mnemonic>
@@ -23,8 +23,15 @@
   <instruction>
     <mnemonic>READ_VALUE</mnemonic>
     <opcode>15</opcode>
-    <operand>1</operand>
+    <operand>2</operand>
     <result_register>8</result_register>
-    <binary>0x1F 0x04 0x00 0x00 </binary>
+    <binary>0x2F 0x04 0x00 0x00 </binary>
+  </instruction>
+  <instruction>
+    <mnemonic>BITREVERSE</mnemonic>
+    <opcode>12</opcode>
+    <operand>2</operand>
+    <result_register>0</result_register>
+    <binary>0x2C 0x00 0x00 0x00 </binary>
   </instruction>
 </log>
