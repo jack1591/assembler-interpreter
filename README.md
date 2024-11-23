@@ -214,7 +214,9 @@ TEST(SampleTest, Test_9) {
 Выполнить поэлементно операцию bitreverse() над вектором длины 8.  
 Результат записать в исходный вектор.  
 
-Содержимое входного файла  
+#### Содержимое входного файла  
 ![input](https://github.com/user-attachments/assets/bd03eb7f-3dc1-4c8c-a578-c5a6f3caa4e8)  
 
+#### Содержимое выходного файла  
+![output](https://github.com/user-attachments/assets/babe0157-ee05-49eb-b36d-1f5e1e8441aa)
 
