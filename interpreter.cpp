@@ -17,6 +17,7 @@ int bitreverse(int number,int length){
     string s = "";
     for (int i=0;i<length;i++)
         s+=to_string(bits[i]);
+    //cout<<s<<endl;
     return bin_to_dec(s);
 }
 
@@ -95,22 +96,24 @@ void interpreter(){
                     break;
             case 15: b = bin_to_dec(string_reverse(bit_str.substr(4,3)));
                     c = bin_to_dec(string_reverse(bit_str.substr(7,15)));
-                    if (memory[c]==0)
+                    if (memory[c]==-1)
                         error_detected("memory is empty!\n");
                     registers[b]=memory[c];
                     break;
             case 7: b = bin_to_dec(string_reverse(bit_str.substr(4,15)));
                     c = bin_to_dec(string_reverse(bit_str.substr(19,3)));
-                    if (registers[c]==0)
-                        error_detected("register is empty!\n");
+                    //cout<<b<<" "<<c<<endl;
+                    if (registers[c]==-1)
+                        error_detected("register is empty!!\n");
                     memory[b]=registers[c];
                     break;
             case 12: 
                     b = bin_to_dec(string_reverse(bit_str.substr(4,3)));
                     c = bin_to_dec(string_reverse(bit_str.substr(7,3)));
-                    if (registers[c]==0)
+                    //scout<<registers[c]<<" "<<memory[registers[c]]<<endl;
+                    if (registers[c]==-1)
                         error_detected("register is empty!\n");
-                    else if (memory[registers[c]]==0)
+                    else if (memory[registers[c]]==-1)
                         error_detected("memory is empty!\n");
                     else registers[b]=bitreverse(memory[registers[c]],3);
                     break;

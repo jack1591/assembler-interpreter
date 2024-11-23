@@ -76,7 +76,7 @@ void read_input(string path_to_log, string path_to_bin,string path_to_input){
     ofstream binFile(path_to_bin+"output.bin");
     log << "<log>\n";
     
-    ifstream fin(path_to_input+"input.txt");
+    ifstream fin(path_to_input+"input5.txt");
     string s = "";
     while (getline(fin,s)){
         s+=' ';

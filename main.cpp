@@ -1,11 +1,3 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
-#include <bitset>
-#include <string>
-#include <cmath>
-#include <map>
 #include "interpreter.cpp"
 
 using namespace std;
