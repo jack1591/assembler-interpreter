@@ -70,13 +70,13 @@ inline string log_in(vector<string> arguments,string out,string command){
     return log;
 }
 
-inline void read_input(string path_to_log, string path_to_bin,string path_to_input){
+inline string read_input(string path_to_log, string path_to_bin,string path_to_input,string name_of_file){
     vector<int> length;
     ofstream log(path_to_log+"log.xml");
     ofstream binFile(path_to_bin+"output.bin");
     log << "<log>\n";
     
-    ifstream fin(path_to_input+"input.txt");
+    ifstream fin(path_to_input+name_of_file);
     string s = "";
     while (getline(fin,s)){
         s+=' ';
@@ -112,7 +112,7 @@ inline void read_input(string path_to_log, string path_to_bin,string path_to_inp
             length.push_back(3);
             length.push_back(3);
         }
-        else error_detected("The undefined name of command!\n");
+        else return "The undefined name of command!\n";//error_detected("The undefined name of command!\n");
         string out = transformate(length,32,arguments);
         binFile<<out+"\n";
         out = log_in(arguments,out,command);
@@ -124,4 +124,5 @@ inline void read_input(string path_to_log, string path_to_bin,string path_to_inp
     fin.close();
     log.close();
     binFile.close();
+    return "";
 }
