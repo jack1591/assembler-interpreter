@@ -7,7 +7,9 @@
 #include <cmath>
 #include <map>
 using namespace std;
-string input_path, bin_path, log_path;
+string input_path, bin_path, log_path,range;
+int l,r;
+
 map<int,int> memory,registers;
 
 int bin_to_dec(string s){
@@ -75,19 +77,18 @@ string log_in(vector<string> arguments,string out,string command){
 int bitreverse(int number,int length){
     bitset<32> bits = number;
     string s = "";
-    for (int i=0;i<length;i++)
+    for (int i=0;i<=length;i++)
         s+=to_string(bits[i]);
     return bin_to_dec(s);
 }
 
-void read_input(string path){
+void read_input(){
     vector<int> length;
     ofstream log(log_path+"log.xml");
     ofstream binFile(bin_path+"output.bin");
-    
     log << "<log>\n";
     
-    ifstream fin(path+"input.txt");
+    ifstream fin(input_path+"input.txt");
     string s = "";
     while (getline(fin,s)){
         s+=' ';
@@ -128,9 +129,9 @@ void read_input(string path){
         binFile<<out+"\n";
         out = log_in(arguments,out,command);
         log<<out;
-        
         length.clear();
     }
+    
     log << "</log>\n";
     fin.close();
     log.close();
@@ -138,11 +139,42 @@ void read_input(string path){
 }
 
 string string_reverse(string s){
+    //cout<<s<<endl;
     int size = s.size();
     string out = "";
     for (int i = s.size()-1;i>=0;i--)
         out+=s[i];
     return out;
+}
+
+void out_result(){
+    ofstream fout("result.xml");
+    fout << "<result>\n";
+    int pred=-1;
+
+    for (auto c:registers){
+        if (c.first>=l){
+            if (c.first>r)
+                break;
+            if (pred==-1)
+                for (int i = l;i<c.first;i++)
+                    fout<<"<register address="<<i<<">"<<-1<<"</register>\n";
+            else {                
+                for (int i =pred+1;i<min(c.first,r);i++)
+                    fout<<"<register address="<<i<<">"<<-1<<"</register>\n";
+             }
+            
+            fout<<"<register address="<<c.first<<">"<<c.second<<"</register>\n";
+            
+            pred = c.first;
+        }
+    }
+    
+    for (int i = max(pred+1,l);i<=r;i++)
+            fout<<"<register address="<<i<<">"<<-1<<"</register>\n";
+
+    fout << "<result>\n";
+    fout.close();
 }
 
 void interpreter(){
@@ -172,7 +204,6 @@ void interpreter(){
                     bit_str+=to_string(bits[j]);
             }
         }
-        cout<<bit_str<<endl;
         int command,b,c;
         command = bin_to_dec(string_reverse(bit_str.substr(0,4)));
         switch(command){
@@ -197,28 +228,32 @@ void interpreter(){
                         cout<<"memory is empty!\n";
                     else {
                         registers[b]=bitreverse(memory[registers[c]],3);
-                        cout<<registers[b]<<endl;
                     }
                     break;
             default: cout<<"Error!";
                      break; 
         }        
-        cout<<command<<" "<<b<<" "<<c<<endl;
     }
     binFile.close();
+    out_result();
 }
 
 int main(int argc, char* argv[]){
     
     input_path = argv[1];
     bin_path = argv[2];
-    log_path = argv[2];
+    log_path = argv[3];
+    range = argv[4];
+    
+    l = stoi(range.substr(0,range.find('-')));
+    r = stoi(range.substr(range.find('-')+1,range.size()-range.find('-')-1));
     
     cout<<"Path to input file is "<<input_path<<endl;
     cout<<"Path to binary output file is "<<bin_path<<endl;
     cout<<"Path to log file is "<<log_path<<endl;
+    cout<<"left is "<<l<<" right is "<<r<<endl;
 
-    read_input(input_path);
+    read_input();
     interpreter();
     return 0;
 }
