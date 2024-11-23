@@ -6,8 +6,9 @@
 #include <string>
 #include <cmath>
 #include <map>
+#include <stdexcept>
 using namespace std;
-string input_path, bin_path, log_path,range;
+string input_path, bin_path, log_path,range,error_to_test;
 int l,r;
 
 map<int,int> memory,registers;
@@ -119,12 +120,16 @@ void read_input(){
             length.push_back(3);
              
         }
-        if (command=="BITREVERSE"){
+        else if (command=="BITREVERSE"){
             length.push_back(4);
             length.push_back(3);
             length.push_back(3);
         }
-        
+        else {
+            error_to_test = "The undefined name of command!\n"; 
+            std::cerr << "The undefined name of command!\n";
+            exit(EXIT_FAILURE);
+        }
         string out = transformate(length,32,arguments);
         binFile<<out+"\n";
         out = log_in(arguments,out,command);
@@ -139,7 +144,6 @@ void read_input(){
 }
 
 string string_reverse(string s){
-    //cout<<s<<endl;
     int size = s.size();
     string out = "";
     for (int i = s.size()-1;i>=0;i--)
@@ -213,24 +217,41 @@ void interpreter(){
                     break;
             case 15: b = bin_to_dec(string_reverse(bit_str.substr(4,3)));
                     c = bin_to_dec(string_reverse(bit_str.substr(7,15)));
+                    if (memory[c]==0){
+                        error_to_test = "memory is empty!\n";
+                        cout<<"memory is empty!\n";
+                        exit(EXIT_FAILURE);
+                    }
                     registers[b]=memory[c];
                     break;
             case 7: b = bin_to_dec(string_reverse(bit_str.substr(4,15)));
                     c = bin_to_dec(string_reverse(bit_str.substr(19,3)));
+                    if (registers[c]==0){
+                        error_to_test = "register is empty!\n";
+                        std::cerr << "register is empty!\n";
+                        exit(EXIT_FAILURE);
+                    }
                     memory[b]=registers[c];
                     break;
             case 12: 
                     b = bin_to_dec(string_reverse(bit_str.substr(4,3)));
                     c = bin_to_dec(string_reverse(bit_str.substr(7,3)));
-                    if (registers[c]==0)
-                        cout<<"register is empty!\n";
-                    else if (memory[registers[c]]==0)
-                        cout<<"memory is empty!\n";
-                    else {
-                        registers[b]=bitreverse(memory[registers[c]],3);
+                    if (registers[c]==0){
+                        error_to_test = "register is empty!\n";
+                        std::cerr << "register is empty!\n";
+                        exit(EXIT_FAILURE);
                     }
+                    else if (memory[registers[c]]==0){
+                        error_to_test = "memory is empty!\n";
+                        cout<<"memory is empty!\n";
+                        exit(EXIT_FAILURE);
+                    }
+                    else registers[b]=bitreverse(memory[registers[c]],3);
                     break;
-            default: cout<<"Error!";
+            default: 
+                     error_to_test = "The unknown index of command!\n";
+                     std::cerr <<"The unknown index of command!\n";
+                     exit(EXIT_FAILURE);
                      break; 
         }        
     }
