@@ -8,15 +8,15 @@
 #include <map>
 using namespace std;
 
-string error_to_test;
+inline string error_to_test;
 
-void error_detected(string error_name){
+inline void error_detected(string error_name){
     error_to_test = error_name;
     std::cerr<<error_name;
     exit(EXIT_FAILURE);
 }
 
-string transformate(vector<int> length, int sum, vector<string> arguments){
+inline string transformate(vector<int> length, int sum, vector<string> arguments){
     string out="";
     string str="";
     string tek;
@@ -58,7 +58,7 @@ string transformate(vector<int> length, int sum, vector<string> arguments){
     return out;
 }
 
-string log_in(vector<string> arguments,string out,string command){
+inline string log_in(vector<string> arguments,string out,string command){
     string log = "";
     log += "  <instruction>\n";
     log += "    <mnemonic>"+command+"</mnemonic>\n";
@@ -70,13 +70,13 @@ string log_in(vector<string> arguments,string out,string command){
     return log;
 }
 
-void read_input(string path_to_log, string path_to_bin,string path_to_input){
+inline void read_input(string path_to_log, string path_to_bin,string path_to_input){
     vector<int> length;
     ofstream log(path_to_log+"log.xml");
     ofstream binFile(path_to_bin+"output.bin");
     log << "<log>\n";
     
-    ifstream fin(path_to_input+"input5.txt");
+    ifstream fin(path_to_input+"input.txt");
     string s = "";
     while (getline(fin,s)){
         s+=' ';

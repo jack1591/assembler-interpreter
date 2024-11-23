@@ -1,10 +1,10 @@
 #include "assembler.cpp"
 using namespace std;
 
-map<int,int> memory,registers;
-int l,r;
+inline map<int,int> memory,registers;
+inline int l,r;
 
-int bin_to_dec(string s){
+inline int bin_to_dec(string s){
     int out = 0;
     for (int i=0;i<s.size();i++)
         if (s[i]=='1')
@@ -12,7 +12,7 @@ int bin_to_dec(string s){
     return out;
 }
 
-int bitreverse(int number,int length){
+inline int bitreverse(int number,int length){
     bitset<32> bits = number;
     string s = "";
     for (int i=0;i<length;i++)
@@ -22,7 +22,7 @@ int bitreverse(int number,int length){
 }
 
 
-void out_result(){
+inline void out_result(){
     ofstream fout("result.xml");
     fout << "<result>\n";
     int pred=-1;
@@ -52,7 +52,7 @@ void out_result(){
     fout.close();
 }
 
-string string_reverse(string s){
+inline string string_reverse(string s){
     int size = s.size();
     string out = "";
     for (int i = s.size()-1;i>=0;i--)
@@ -60,7 +60,7 @@ string string_reverse(string s){
     return out;
 }
 
-void interpreter(){
+inline void interpreter(){
     fstream binFile("output.bin");
     string s;
     while (getline(binFile,s)){

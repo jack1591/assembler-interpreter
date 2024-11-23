@@ -1,0 +1,1 @@
+-I"C:/Users/jackt/assembler-interpreter/googletest/googlemock/include" -I"C:/Users/jackt/assembler-interpreter/googletest/googlemock" -isystem "C:/Users/jackt/assembler-interpreter/googletest/googletest/include" -isystem "C:/Users/jackt/assembler-interpreter/googletest/googletest"
