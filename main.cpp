@@ -18,7 +18,7 @@ int main(int argc, char* argv[]){
     cout<<"Path to log file is "<<log_path<<endl;
     cout<<"left is "<<l<<" right is "<<r<<endl;
 
-    string abc = read_input(log_path,bin_path,input_path,"input.txt");
+    string abc = read_input(log_path,bin_path,input_path,"input5.txt");
     string ans = interpreter();
     return 0;
 }

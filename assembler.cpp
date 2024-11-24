@@ -73,7 +73,7 @@ inline string log_in(vector<string> arguments,string out,string command){
 inline string read_input(string path_to_log, string path_to_bin,string path_to_input,string name_of_file){
     vector<int> length;
     ofstream log(path_to_log+"log.xml");
-    ofstream binFile(path_to_bin+"output.bin");
+    ofstream binFile(path_to_bin+"output.bin",std::ios::binary);
     log << "<log>\n";
     
     ifstream fin(path_to_input+name_of_file);
@@ -114,7 +114,11 @@ inline string read_input(string path_to_log, string path_to_bin,string path_to_i
         }
         else return "The undefined name of command!\n";//error_detected("The undefined name of command!\n");
         string out = transformate(length,32,arguments);
-        binFile<<out+"\n";
+        out+="\n";
+        for (auto letter:out)
+            binFile.write(reinterpret_cast<const char*>(&letter), sizeof(letter));
+
+        //binFile<<out;
         out = log_in(arguments,out,command);
         log<<out;
         length.clear();

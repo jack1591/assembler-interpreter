@@ -74,8 +74,12 @@ inline string string_reverse(string s){
 
 inline string interpreter(){
     fstream binFile("output.bin");
+    char buffer[21];
     string s;
-    while (getline(binFile,s)){
+    while (binFile.read(buffer, sizeof(buffer))){
+        s="";
+        for (int i = 0;i<21;i++)
+            s+=buffer[i];
         s+=" ";
         vector<string> parts;
         
