@@ -3,4 +3,6 @@
 <register address=1>4</register>
 <register address=2>2</register>
 <register address=3>6</register>
+<register address=4>1</register>
+<register address=5>5</register>
 <result>
