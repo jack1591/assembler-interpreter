@@ -14,7 +14,7 @@ cd assembler-interpreter
 ``` 
 2. Установить библиотеку googletest
 ```
-git clone https://github.com/google/googletest.git
+git clone --depth 1 https://github.com/google/googletest.git
 ```
 3. Перейти в папку build в терминале
 ```
