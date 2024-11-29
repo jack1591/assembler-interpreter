@@ -8,14 +8,21 @@
 git clone https://github.com/jack1591/assembler-interpreter.git
 ```
 ## Запуск программы
-1. Перейти в папку build из папки third в терминале
+1. Перейти в папку с репозиторием
 ```
-cd assembler-interpreter/build
+cd assembler-interpreter
+``` 
+2. Установить библиотеку googletest
+```
+git clone https://github.com/google/googletest.git
+```
+3. Перейти в папку build в терминале
+```
+cd build
 ```  
-2. При первом запуске программы ввести следующие команды:
+4. При первом запуске программы ввести следующие команды:
 ```
 cmake -G "MinGW Makefiles" ..
-cmake ..
 mingw32-make
 ```  
 
